@@ -1,5 +1,6 @@
 use serde::{Deserialize, Serialize};
 
+#[allow(clippy::struct_field_names)]
 #[derive(Serialize, Deserialize)]
 pub struct ServerConfig {
     pub db_host: String,

@@ -79,13 +79,13 @@ async fn verify_queries(
     db: &mut PgConnection,
     sensors: &[SensorEntry],
 ) -> Result<bool, Box<dyn Error>> {
-    for entry in sensors.iter() {
+    for entry in sensors {
         let sql = &entry.query;
         let Err(why) = sqlx::query(sql).fetch_one(&mut *db).await else {
             continue;
         };
 
-        if let sqlx::Error::RowNotFound = why {
+        if matches!(why, sqlx::Error::RowNotFound) {
             continue;
         }
 
@@ -162,11 +162,12 @@ fn generate_stat_entry(
             ORDER BY measurements.id DESC LIMIT 1;"
         )),
         column: col.to_string(),
-        device_class: dev_class.map(|s| s.to_string()),
-        unit_of_measurement: unit.map(|s| s.to_string()),
+        device_class: dev_class.map(ToString::to_string),
+        unit_of_measurement: unit.map(ToString::to_string),
     }
 }
 
+#[allow(clippy::needless_pass_by_value)]
 fn sql_fmt(sql: String) -> String {
     sql.trim()
         .split(' ')
