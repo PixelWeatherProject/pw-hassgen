@@ -18,4 +18,6 @@ pub struct SensorEntry {
     pub device_class: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub unit_of_measurement: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub state_class: Option<String>,
 }

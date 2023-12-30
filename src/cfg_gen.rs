@@ -140,6 +140,7 @@ fn generate_entry(
         } else {
             Some(unit.to_string())
         },
+        state_class: Some("measurement".to_string()),
     }
 }
 
@@ -164,6 +165,7 @@ fn generate_stat_entry(
         column: col.to_string(),
         device_class: dev_class.map(ToString::to_string),
         unit_of_measurement: unit.map(ToString::to_string),
+        state_class: None,
     }
 }
 
