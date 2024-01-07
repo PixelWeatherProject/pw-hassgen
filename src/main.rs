@@ -35,7 +35,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     };
 
     let db = sqlx::PgConnection::connect(&db_url).await?;
-    let config = cfg_gen::generate_config(&db_url, db, args.stats, args.verify).await?;
+    let config = cfg_gen::generate_config(&db_url, db, args.stats, args.verify, &args.skip).await?;
     let mut yaml = serde_yaml::to_string(&config)?;
 
     if let Some(name) = args.instance_name {

@@ -32,6 +32,7 @@ pub async fn generate_config(
     mut db: PgConnection,
     include_stats: bool,
     verify: bool,
+    skip_nodes: &[i16],
 ) -> Result<HassConfig, Box<dyn Error>> {
     let mut sensors = Vec::new();
     let device_ids = sqlx::query!("SELECT id FROM devices")
@@ -41,6 +42,10 @@ pub async fn generate_config(
         .map(|rec| rec.id);
 
     for node in device_ids {
+        if skip_nodes.contains(&node) {
+            continue;
+        }
+
         for (prop_name, db_col, dev_class, unit) in ALWAYS_SUPPORTED_PROPS {
             sensors.push(generate_entry(
                 db_url, node, prop_name, db_col, dev_class, unit,
