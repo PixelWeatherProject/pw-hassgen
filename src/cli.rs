@@ -1,20 +1,24 @@
-use clap::Parser;
+use clap::{Parser, Subcommand};
 use std::path::PathBuf;
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
 pub struct Cli {
-    /// Database URL
-    #[arg(long, value_name = "URL")]
-    pub db_url: Option<String>,
+    /// Database Host
+    #[arg(short, long, value_name = "HOST")]
+    pub host: String,
 
-    /// Path to PWMP server configuration
-    #[arg(long, value_name = "PATH")]
-    pub config: Option<PathBuf>,
+    /// Database Port
+    #[arg(long, value_name = "PORT", default_value_t = 5432)]
+    pub port: u16,
 
-    /// Instance name
-    #[arg(short, long, value_name = "NAME")]
-    pub instance_name: Option<String>,
+    /// Database username
+    #[arg(short, long, value_name = "USERNAME")]
+    pub username: String,
+
+    /// Database password
+    #[arg(short, long, value_name = "PASSWORD")]
+    pub password: String,
 
     /// Include stats?
     #[arg(short, long, default_value_t = false)]
@@ -25,9 +29,19 @@ pub struct Cli {
     pub verify: bool,
 
     /// List of Node IDs to skip (=1,2,...)
-    #[arg(long, value_parser, num_args = 1.., value_delimiter = ',', value_name = "ID1,ID2")]
-    pub skip: Vec<i16>,
+    #[arg(long, value_parser, num_args = 1.., value_delimiter = ',', value_name = "1,2")]
+    pub skip: Vec<u16>,
 
-    /// Output
-    pub out: PathBuf,
+    #[command(subcommand)]
+    command: Command,
+}
+
+#[derive(Subcommand)]
+pub enum Command {
+    /// Generate YAML configuration
+    Generate {
+        /// Output file
+        #[arg(short, long, value_name = "FILE")]
+        out: Option<PathBuf>,
+    },
 }
