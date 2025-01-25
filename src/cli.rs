@@ -1,7 +1,7 @@
 use clap::{Parser, Subcommand};
 use std::path::PathBuf;
 
-#[derive(Parser)]
+#[derive(Debug, Parser)]
 #[command(author, version, about, long_about = None)]
 pub struct Cli {
     /// Database Host
@@ -20,6 +20,10 @@ pub struct Cli {
     #[arg(short, long, value_name = "PASSWORD")]
     pub password: String,
 
+    /// Database name
+    #[arg(short, long, value_name = "DATABASE")]
+    pub database: String,
+
     /// Include stats?
     #[arg(short, long, default_value_t = false)]
     pub stats: bool,
@@ -33,10 +37,10 @@ pub struct Cli {
     pub skip: Vec<u16>,
 
     #[command(subcommand)]
-    command: Command,
+    pub command: Command,
 }
 
-#[derive(Subcommand)]
+#[derive(Debug, Subcommand)]
 pub enum Command {
     /// Generate YAML configuration
     Generate {
