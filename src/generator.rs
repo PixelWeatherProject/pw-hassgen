@@ -3,6 +3,7 @@ use log::{debug, info, warn};
 use sqlx::{query_file, PgConnection};
 use std::io::Write;
 
+#[allow(clippy::future_not_send)]
 pub async fn run(
     stats: bool,
     verify: bool,
@@ -33,12 +34,6 @@ pub async fn run(
             entities.push(Entity::new_wifi_essid(node_id, db_url));
             entities.push(Entity::new_wifi_rssi(node_id, db_url));
         }
-    }
-
-    if stats {
-        info!("Adding statistics");
-    } else {
-        debug!("Skipping statistics")
     }
 
     if verify {

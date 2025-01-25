@@ -3,7 +3,6 @@ use clap::Parser;
 use log::{debug, info};
 use sqlx::Connection;
 use std::{
-    error::Error,
     fs::OpenOptions,
     io::{stdout, Write},
 };
@@ -13,7 +12,7 @@ mod generator;
 mod hass;
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn Error>> {
+async fn main() -> anyhow::Result<()> {
     pretty_env_logger::init();
 
     let args = Cli::parse();
@@ -40,7 +39,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
                 None => &mut stdout(),
             };
 
-            generator::run(stats, verify, &skip, db, &db_url, out).await?
+            generator::run(stats, verify, &skip, db, &db_url, out).await?;
         }
     }
 
