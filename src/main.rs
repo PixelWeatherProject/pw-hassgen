@@ -4,11 +4,8 @@ use log::{debug, info};
 use sqlx::Connection;
 use std::error::Error;
 
-mod cfg_gen;
-mod cfg_parse;
 mod cli;
 mod generator;
-mod hass_cfg;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
