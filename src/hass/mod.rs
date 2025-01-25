@@ -18,7 +18,6 @@ pub struct Entity {
 #[strum(serialize_all = "snake_case")]
 #[non_exhaustive]
 pub enum DeviceClass {
-    Duration,
     Humidity,
     Temperature,
     SignalStrength,
