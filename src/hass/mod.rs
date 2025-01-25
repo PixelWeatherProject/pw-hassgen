@@ -58,4 +58,12 @@ impl Entity {
             icon: "mdi:humidity"
         }
     }
+
+    pub fn name(&self) -> &str {
+        &self.name
+    }
+
+    pub fn query(&self) -> &str {
+        &self.query
+    }
 }

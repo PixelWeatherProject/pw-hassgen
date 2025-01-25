@@ -1,5 +1,5 @@
 use crate::hass::Entity;
-use log::{debug, info};
+use log::{debug, info, warn};
 use sqlx::{query_file, PgConnection};
 use std::io::Write;
 
@@ -31,6 +31,13 @@ pub async fn run(
         entities.push(humidity);
     }
 
+    if verify {
+        verify_queries(&entities, &mut db).await?;
+        info!("Query verification OK");
+    } else {
+        info!("Skipping query verification");
+    }
+
     serde_yaml::to_writer(out, &entities)?;
 
     Ok(())
@@ -47,4 +54,17 @@ async fn get_node_ids(db: &mut PgConnection) -> anyhow::Result<Vec<u16>> {
         .collect();
 
     Ok(ids)
+}
+
+async fn verify_queries(entities: &[Entity], db: &mut PgConnection) -> anyhow::Result<()> {
+    for entity in entities {
+        let query = entity.query();
+        let rows = sqlx::query(query).fetch_all(&mut *db).await?;
+
+        if rows.len() > 1 {
+            warn!("Entity \"{}\"'s query returns multiple rows", entity.name());
+        }
+    }
+
+    Ok(())
 }
