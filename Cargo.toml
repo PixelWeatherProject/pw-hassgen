@@ -7,12 +7,14 @@ edition = "2021"
 strip = true
 
 [dependencies]
+serde_yaml = "0.9.34"
+pretty_env_logger = "0.5.0"
+log = { version = "0.4.25", features = ["std"] }
 clap = { version = "4.5.27", features = ["derive"] }
 serde = { version = "1.0.217", features = ["derive"] }
-serde_yaml = "0.9.34"
+tokio = { version = "1.43.0", features = ["rt-multi-thread", "macros"] }
 sqlx = { version = "0.8.3", default-features = false, features = [
     "postgres",
     "runtime-tokio",
     "macros",
 ] }
-tokio = { version = "1.43.0", features = ["rt-multi-thread", "macros"] }
