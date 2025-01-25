@@ -6,6 +6,7 @@ use std::error::Error;
 
 mod cli;
 mod generator;
+mod hass;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
