@@ -20,7 +20,7 @@ async fn main() -> anyhow::Result<()> {
 
     info!("Connecting to database @ {}", args.host);
     let db_url = format!(
-        "postgres://{}:{}@{}:{}/{}",
+        "postgresql://{}:{}@{}:{}/{}",
         args.username, args.password, args.host, args.port, args.database
     );
 
