@@ -1,7 +1,13 @@
 [package]
 name = "pw-hassgen"
-version = "0.1.2"
+version = "2.0.0"
 edition = "2021"
+authors = ["Fábián Varga <23280129+br0kenpixel@users.noreply.github.com>"]
+description = "Home Assistant configuration generator for PixelWeather."
+homepage = "https://github.com/PixelWeatherProject"
+license-file = "LICENSE"
+readme = "README.md"
+repository = "https://github.com/PixelWeatherProject/pw-hassgen"
 
 [profile.release]
 strip = true
