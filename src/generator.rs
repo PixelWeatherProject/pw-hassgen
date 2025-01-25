@@ -13,7 +13,7 @@ pub async fn run(
     debug!("Got node IDs: {nodes:?}");
 
     debug!("Filtering nodes: {skip:?}");
-    nodes.retain(|id| skip.contains(id));
+    nodes.retain(|id| !skip.contains(id));
     info!("Working with nodes: {nodes:?}");
 
     Ok(())
