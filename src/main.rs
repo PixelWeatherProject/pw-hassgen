@@ -40,7 +40,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
                 None => &mut stdout(),
             };
 
-            generator::run(stats, verify, &skip, db, out).await?
+            generator::run(stats, verify, &skip, db, &db_url, out).await?
         }
     }
 
