@@ -29,13 +29,18 @@ async fn main() -> Result<(), Box<dyn Error>> {
     debug!("Connected to database");
 
     match args.command {
-        cli::Command::Generate { out } => {
+        cli::Command::Generate {
+            stats,
+            verify,
+            skip,
+            out,
+        } => {
             let out: &mut dyn Write = match out {
                 Some(file) => &mut OpenOptions::new().write(true).open(file)?,
                 None => &mut stdout(),
             };
 
-            generator::run(db, out).await?
+            generator::run(stats, verify, &skip, db, out).await?
         }
     }
 
