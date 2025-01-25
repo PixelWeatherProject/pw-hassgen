@@ -41,7 +41,7 @@ impl Entity {
             unit_of_measurement: Some("°C"),
             device_class: Some(DeviceClass::Temperature),
             state_class: Some(StateClass::Measurement),
-            icon: "mdi:temperature"
+            icon: "mdi:thermometer"
         }
     }
 
@@ -54,7 +54,7 @@ impl Entity {
             unit_of_measurement: Some("%"),
             device_class: Some(DeviceClass::Humidity),
             state_class: Some(StateClass::Measurement),
-            icon: "mdi:humidity"
+            icon: "mdi:water-percent"
         }
     }
 
@@ -67,7 +67,7 @@ impl Entity {
             unit_of_measurement: Some("V"),
             device_class: Some(DeviceClass::Voltage),
             state_class: Some(StateClass::Measurement),
-            icon: "mdi:voltage",
+            icon: "mdi:battery",
         }
     }
 
@@ -80,7 +80,7 @@ impl Entity {
             unit_of_measurement: None,
             device_class: None,
             state_class: None,
-            icon: "mdi:signal_strength",
+            icon: "mdi:wifi",
         }
     }
 
@@ -93,7 +93,7 @@ impl Entity {
             unit_of_measurement: Some("dBm"),
             device_class: Some(DeviceClass::SignalStrength),
             state_class: Some(StateClass::Measurement),
-            icon: "mdi:signal_strength",
+            icon: "mdi:signal-cellular-2",
         }
     }
 
