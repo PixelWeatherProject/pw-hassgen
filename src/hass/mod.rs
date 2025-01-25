@@ -6,12 +6,12 @@ use strum::Display;
 pub struct Entity {
     name: String,
     query: String,
-    column: String,
+    column: &'static str,
     db_url: String,
-    unit_of_measurement: Option<String>,
+    unit_of_measurement: Option<&'static str>,
     device_class: Option<DeviceClass>,
     state_class: Option<StateClass>,
-    icon: String,
+    icon: &'static str,
 }
 
 #[derive(Display, SerializeDisplay)]
@@ -30,4 +30,32 @@ pub enum DeviceClass {
 #[non_exhaustive]
 pub enum StateClass {
     Measurement,
+}
+
+impl Entity {
+    pub fn new_temperature(node_id: u16, db_url: &str) -> Self {
+        Self {
+            name: format!("Node {node_id} Temperature"),
+            query: format!("SELECT temperature FROM measurements WHERE id = {node_id} ORDER BY \"when\" DESC LIMIT 1"),
+            column: "temperature",
+            db_url: db_url.to_string(),
+            unit_of_measurement: Some("°C"),
+            device_class: Some(DeviceClass::Temperature),
+            state_class: Some(StateClass::Measurement),
+            icon: "mdi:temperature"
+        }
+    }
+
+    pub fn new_humidity(node_id: u16, db_url: &str) -> Self {
+        Self {
+            name: format!("Node {node_id} Humidity"),
+            query: format!("SELECT humidity FROM measurements WHERE id = {node_id} ORDER BY \"when\" DESC LIMIT 1"),
+            column: "humidity",
+            db_url: db_url.to_string(),
+            unit_of_measurement: Some("%"),
+            device_class: Some(DeviceClass::Humidity),
+            state_class: Some(StateClass::Measurement),
+            icon: "mdi:humidity"
+        }
+    }
 }
