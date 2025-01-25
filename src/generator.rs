@@ -20,15 +20,25 @@ pub async fn run(
 
     let mut entities = Vec::new();
 
-    // Temperature and Humidity are required, so we can do them here
     for node_id in nodes {
         debug!("Processing node #{node_id}");
 
-        let temperature = Entity::new_temperature(node_id, db_url);
-        let humidity = Entity::new_humidity(node_id, db_url);
+        entities.push(Entity::new_temperature(node_id, db_url));
+        entities.push(Entity::new_humidity(node_id, db_url));
 
-        entities.push(temperature);
-        entities.push(humidity);
+        if stats {
+            debug!("Processing stats for node");
+
+            entities.push(Entity::new_battery(node_id, db_url));
+            entities.push(Entity::new_wifi_essid(node_id, db_url));
+            entities.push(Entity::new_wifi_rssi(node_id, db_url));
+        }
+    }
+
+    if stats {
+        info!("Adding statistics");
+    } else {
+        debug!("Skipping statistics")
     }
 
     if verify {

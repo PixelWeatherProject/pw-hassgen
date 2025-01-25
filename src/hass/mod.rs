@@ -59,6 +59,45 @@ impl Entity {
         }
     }
 
+    pub fn new_battery(node_id: u16, db_url: &str) -> Self {
+        Self {
+            name: format!("Node {node_id} Battery"),
+            query: format!("SELECT battery FROM statistics JOIN measurements ON measurements.id = statistics.id WHERE measurements.node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"),
+            column: "battery",
+            db_url: db_url.to_string(),
+            unit_of_measurement: Some("V"),
+            device_class: Some(DeviceClass::Voltage),
+            state_class: Some(StateClass::Measurement),
+            icon: "mdi:voltage",
+        }
+    }
+
+    pub fn new_wifi_essid(node_id: u16, db_url: &str) -> Self {
+        Self {
+            name: format!("Node {node_id} WiFi ESSID"),
+            query: format!("SELECT wifi_ssid FROM statistics JOIN measurements ON measurements.id = statistics.id WHERE measurements.node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"),
+            column: "wifi_ssid",
+            db_url: db_url.to_string(),
+            unit_of_measurement: None,
+            device_class: None,
+            state_class: None,
+            icon: "mdi:signal_strength",
+        }
+    }
+
+    pub fn new_wifi_rssi(node_id: u16, db_url: &str) -> Self {
+        Self {
+            name: format!("Node {node_id} WiFi Signal Strength"),
+            query: format!("SELECT wifi_rssi FROM statistics JOIN measurements ON measurements.id = statistics.id WHERE measurements.node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"),
+            column: "wifi_rssi",
+            db_url: db_url.to_string(),
+            unit_of_measurement: Some("dBm"),
+            device_class: Some(DeviceClass::SignalStrength),
+            state_class: Some(StateClass::Measurement),
+            icon: "mdi:signal_strength",
+        }
+    }
+
     pub fn name(&self) -> &str {
         &self.name
     }
