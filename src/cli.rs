@@ -5,7 +5,7 @@ use std::path::PathBuf;
 #[command(author, version, about, long_about = None)]
 pub struct Cli {
     /// Database Host
-    #[arg(short, long, value_name = "HOST")]
+    #[arg(value_name = "HOST")]
     pub host: String,
 
     /// Database Port
