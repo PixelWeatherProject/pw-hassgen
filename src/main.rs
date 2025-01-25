@@ -2,7 +2,11 @@ use crate::cli::Cli;
 use clap::Parser;
 use log::{debug, info};
 use sqlx::Connection;
-use std::error::Error;
+use std::{
+    error::Error,
+    fs::OpenOptions,
+    io::{stdout, Write},
+};
 
 mod cli;
 mod generator;
@@ -25,7 +29,14 @@ async fn main() -> Result<(), Box<dyn Error>> {
     debug!("Connected to database");
 
     match args.command {
-        cli::Command::Generate { out } => generator::__x(),
+        cli::Command::Generate { out } => {
+            let out: &mut dyn Write = match out {
+                Some(file) => &mut OpenOptions::new().write(true).open(file)?,
+                None => &mut stdout(),
+            };
+
+            generator::run(db, out).await?
+        }
     }
 
     Ok(())
