@@ -38,7 +38,7 @@ pub enum Command {
 
         /// Verify generated quieries?
         #[arg(short, long, default_value_t = false)]
-        serify: bool,
+        verify: bool,
 
         /// List of Node IDs to skip (=1,2,...)
         #[arg(long, value_parser, num_args = 1.., value_delimiter = ',', value_name = "1,2")]
