@@ -8,8 +8,11 @@ pub struct Entity {
     query: String,
     column: &'static str,
     db_url: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     unit_of_measurement: Option<&'static str>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     device_class: Option<DeviceClass>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     state_class: Option<StateClass>,
     icon: &'static str,
 }
