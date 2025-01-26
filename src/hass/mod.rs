@@ -38,7 +38,7 @@ impl Entity {
     pub fn new_temperature(node_id: u16, db_url: &str) -> Self {
         Self {
             name: format!("Node {node_id} Temperature"),
-            query: format!("SELECT temperature FROM measurements WHERE id = {node_id} ORDER BY \"when\" DESC LIMIT 1"),
+            query: format!("SELECT temperature FROM measurements WHERE node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"),
             column: "temperature",
             db_url: db_url.to_string(),
             unit_of_measurement: Some("°C"),
@@ -51,7 +51,7 @@ impl Entity {
     pub fn new_humidity(node_id: u16, db_url: &str) -> Self {
         Self {
             name: format!("Node {node_id} Humidity"),
-            query: format!("SELECT humidity FROM measurements WHERE id = {node_id} ORDER BY \"when\" DESC LIMIT 1"),
+            query: format!("SELECT humidity FROM measurements WHERE node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"),
             column: "humidity",
             db_url: db_url.to_string(),
             unit_of_measurement: Some("%"),
