@@ -4,7 +4,7 @@ use std::path::PathBuf;
 #[derive(Debug, Parser)]
 #[command(author, version, about, long_about = None)]
 pub struct Cli {
-    /// Database Host
+    /// Database host
     #[arg(value_name = "HOST")]
     pub host: String,
 
