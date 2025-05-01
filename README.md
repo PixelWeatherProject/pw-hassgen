@@ -30,7 +30,7 @@ The `generate` command provides additional options for more customization.
 ## Example output
 ```yml
 - name: Node 1 Temperature
-  query: SELECT temperature FROM measurements WHERE node = 1 ORDER BY "when" DESC LIMIT 1;
+  query: SELECT CAST(temperature AS DECIMAL(4, 2)) FROM measurements WHERE node = 1 ORDER BY "when" DESC LIMIT 1;
   column: temperature
   db_url: postgresql://user:pass@192.168.0.111:5432/pixelweather
   unit_of_measurement: °C
@@ -46,7 +46,7 @@ The `generate` command provides additional options for more customization.
   state_class: MEASUREMENT
   icon: mdi:water-percent
 - name: Node 1 Battery
-  query: SELECT battery FROM statistics JOIN measurements ON measurements.id = statistics.id WHERE measurements.node = 1 ORDER BY "when" DESC LIMIT 1;
+  query: SELECT CAST(battery AS DECIMAL(3, 2)) FROM statistics JOIN measurements ON measurements.id = statistics.id WHERE measurements.node = 1 ORDER BY "when" DESC LIMIT 1;
   column: battery
   db_url: postgresql://user:pass@192.168.0.111:5432/pixelweather
   unit_of_measurement: V

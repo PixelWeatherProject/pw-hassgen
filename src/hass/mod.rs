@@ -38,7 +38,7 @@ impl Entity {
     pub fn new_temperature(node_id: u16, db_url: &str) -> Self {
         Self {
             name: format!("Node {node_id} Temperature"),
-            query: format!("SELECT temperature FROM measurements WHERE node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"),
+            query: format!("SELECT CAST(temperature AS DECIMAL(4, 2)) FROM measurements WHERE node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"),
             column: "temperature",
             db_url: db_url.to_string(),
             unit_of_measurement: Some("°C"),
@@ -64,7 +64,7 @@ impl Entity {
     pub fn new_battery(node_id: u16, db_url: &str) -> Self {
         Self {
             name: format!("Node {node_id} Battery"),
-            query: format!("SELECT battery FROM statistics JOIN measurements ON measurements.id = statistics.id WHERE measurements.node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"),
+            query: format!("SELECT CAST(battery AS DECIMAL(3, 2)) FROM statistics JOIN measurements ON measurements.id = statistics.id WHERE measurements.node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"),
             column: "battery",
             db_url: db_url.to_string(),
             unit_of_measurement: Some("V"),
