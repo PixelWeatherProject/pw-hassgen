@@ -38,33 +38,39 @@ impl Entity {
     pub fn new_temperature(node_id: u16, db_url: &str) -> Self {
         Self {
             name: format!("Node {node_id} Temperature"),
-            query: format!("SELECT CAST(temperature AS DECIMAL(4, 2)) FROM measurements WHERE node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"),
+            query: format!(
+                "SELECT CAST(temperature AS DECIMAL(4, 2)) FROM measurements WHERE node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"
+            ),
             column: "temperature",
             db_url: db_url.to_string(),
             unit_of_measurement: Some("°C"),
             device_class: Some(DeviceClass::Temperature),
             state_class: Some(StateClass::Measurement),
-            icon: "mdi:thermometer"
+            icon: "mdi:thermometer",
         }
     }
 
     pub fn new_humidity(node_id: u16, db_url: &str) -> Self {
         Self {
             name: format!("Node {node_id} Humidity"),
-            query: format!("SELECT humidity FROM measurements WHERE node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"),
+            query: format!(
+                "SELECT humidity FROM measurements WHERE node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"
+            ),
             column: "humidity",
             db_url: db_url.to_string(),
             unit_of_measurement: Some("%"),
             device_class: Some(DeviceClass::Humidity),
             state_class: Some(StateClass::Measurement),
-            icon: "mdi:water-percent"
+            icon: "mdi:water-percent",
         }
     }
 
     pub fn new_battery(node_id: u16, db_url: &str) -> Self {
         Self {
             name: format!("Node {node_id} Battery"),
-            query: format!("SELECT CAST(battery AS DECIMAL(3, 2)) FROM statistics JOIN measurements ON measurements.id = statistics.id WHERE measurements.node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"),
+            query: format!(
+                "SELECT CAST(battery AS DECIMAL(3, 2)) FROM statistics JOIN measurements ON measurements.id = statistics.id WHERE measurements.node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"
+            ),
             column: "battery",
             db_url: db_url.to_string(),
             unit_of_measurement: Some("V"),
@@ -77,7 +83,9 @@ impl Entity {
     pub fn new_wifi_essid(node_id: u16, db_url: &str) -> Self {
         Self {
             name: format!("Node {node_id} WiFi ESSID"),
-            query: format!("SELECT wifi_ssid FROM statistics JOIN measurements ON measurements.id = statistics.id WHERE measurements.node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"),
+            query: format!(
+                "SELECT wifi_ssid FROM statistics JOIN measurements ON measurements.id = statistics.id WHERE measurements.node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"
+            ),
             column: "wifi_ssid",
             db_url: db_url.to_string(),
             unit_of_measurement: None,
@@ -90,7 +98,9 @@ impl Entity {
     pub fn new_wifi_rssi(node_id: u16, db_url: &str) -> Self {
         Self {
             name: format!("Node {node_id} WiFi Signal Strength"),
-            query: format!("SELECT wifi_rssi FROM statistics JOIN measurements ON measurements.id = statistics.id WHERE measurements.node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"),
+            query: format!(
+                "SELECT wifi_rssi FROM statistics JOIN measurements ON measurements.id = statistics.id WHERE measurements.node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"
+            ),
             column: "wifi_rssi",
             db_url: db_url.to_string(),
             unit_of_measurement: Some("dBm"),
@@ -100,10 +110,12 @@ impl Entity {
         }
     }
 
+    #[allow(clippy::missing_const_for_fn)]
     pub fn name(&self) -> &str {
         &self.name
     }
 
+    #[allow(clippy::missing_const_for_fn)]
     pub fn query(&self) -> &str {
         &self.query
     }
