@@ -8,7 +8,7 @@ pub struct Cli {
     #[arg(value_name = "HOST")]
     pub host: String,
 
-    /// Database Port
+    /// Database port
     #[arg(long, value_name = "PORT", default_value_t = 5432)]
     pub port: u16,
 
