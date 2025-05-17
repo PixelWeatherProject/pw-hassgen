@@ -46,7 +46,7 @@ The `generate` command provides additional options for more customization.
   state_class: MEASUREMENT
   icon: mdi:water-percent
 - name: Node 1 Battery
-  query: SELECT CAST(battery AS DECIMAL(3, 2)) FROM statistics JOIN measurements ON measurements.id = statistics.id WHERE measurements.node = 1 ORDER BY "when" DESC LIMIT 1;
+  query: SELECT CAST(battery AS DECIMAL(3, 2)) FROM statistics JOIN measurements ON measurements.id = statistics.measurement WHERE measurements.node = 1 ORDER BY "when" DESC LIMIT 1;
   column: battery
   db_url: postgresql://user:pass@192.168.0.111:5432/pixelweather
   unit_of_measurement: V
@@ -54,12 +54,12 @@ The `generate` command provides additional options for more customization.
   state_class: MEASUREMENT
   icon: mdi:battery
 - name: Node 1 WiFi ESSID
-  query: SELECT wifi_ssid FROM statistics JOIN measurements ON measurements.id = statistics.id WHERE measurements.node = 1 ORDER BY "when" DESC LIMIT 1;
+  query: SELECT wifi_ssid FROM statistics JOIN measurements ON measurements.id = statistics.measurement WHERE measurements.node = 1 ORDER BY "when" DESC LIMIT 1;
   column: wifi_ssid
   db_url: postgresql://user:pass@192.168.0.111:5432/pixelweather
   icon: mdi:wifi
 - name: Node 1 WiFi Signal Strength
-  query: SELECT wifi_rssi FROM statistics JOIN measurements ON measurements.id = statistics.id WHERE measurements.node = 1 ORDER BY "when" DESC LIMIT 1;
+  query: SELECT wifi_rssi FROM statistics JOIN measurements ON measurements.id = statistics.measurement WHERE measurements.node = 1 ORDER BY "when" DESC LIMIT 1;
   column: wifi_rssi
   db_url: postgresql://user:pass@192.168.0.111:5432/pixelweather
   unit_of_measurement: dBm
