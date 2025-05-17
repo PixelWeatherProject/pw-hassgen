@@ -69,7 +69,7 @@ impl Entity {
         Self {
             name: format!("Node {node_id} Battery"),
             query: format!(
-                "SELECT CAST(battery AS DECIMAL(3, 2)) FROM statistics JOIN measurements ON measurements.id = statistics.id WHERE measurements.node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"
+                "SELECT CAST(battery AS DECIMAL(3, 2)) FROM statistics JOIN measurements ON measurements.id = statistics.measurement WHERE measurements.node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"
             ),
             column: "battery",
             db_url: db_url.to_string(),
@@ -84,7 +84,7 @@ impl Entity {
         Self {
             name: format!("Node {node_id} WiFi ESSID"),
             query: format!(
-                "SELECT wifi_ssid FROM statistics JOIN measurements ON measurements.id = statistics.id WHERE measurements.node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"
+                "SELECT wifi_ssid FROM statistics JOIN measurements ON measurements.id = statistics.measurement WHERE measurements.node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"
             ),
             column: "wifi_ssid",
             db_url: db_url.to_string(),
@@ -99,7 +99,7 @@ impl Entity {
         Self {
             name: format!("Node {node_id} WiFi Signal Strength"),
             query: format!(
-                "SELECT wifi_rssi FROM statistics JOIN measurements ON measurements.id = statistics.id WHERE measurements.node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"
+                "SELECT wifi_rssi FROM statistics JOIN measurements ON measurements.id = statistics.measurement WHERE measurements.node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"
             ),
             column: "wifi_rssi",
             db_url: db_url.to_string(),
