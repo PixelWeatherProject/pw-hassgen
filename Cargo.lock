@@ -1031,7 +1031,7 @@ dependencies = [
 
 [[package]]
 name = "pw-hassgen"
-version = "2.0.4"
+version = "2.0.5"
 dependencies = [
  "anyhow",
  "clap",
