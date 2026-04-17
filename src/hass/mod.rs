@@ -70,7 +70,7 @@ impl Entity {
         Self {
             name: format!("Node {node_id} Air Pressure"),
             query: format!(
-                "SELECT air_pressure FROM measurements WHERE node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"
+                "SELECT air_pressure FROM measurements WHERE node = {node_id} AND air_pressure IS NOT NULL ORDER BY \"when\" DESC LIMIT 1;"
             ),
             column: "air_pressure",
             db_url: db_url.to_string(),
