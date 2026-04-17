@@ -23,6 +23,7 @@ pub struct Entity {
 pub enum DeviceClass {
     Humidity,
     Temperature,
+    AtmosphericPressure,
     SignalStrength,
     Voltage,
 }
@@ -62,6 +63,21 @@ impl Entity {
             device_class: Some(DeviceClass::Humidity),
             state_class: Some(StateClass::Measurement),
             icon: "mdi:water-percent",
+        }
+    }
+
+    pub fn new_air_pressure(node_id: u16, db_url: &str) -> Self {
+        Self {
+            name: format!("Node {node_id} Air Pressure"),
+            query: format!(
+                "SELECT air_pressure FROM measurements WHERE node = {node_id} ORDER BY \"when\" DESC LIMIT 1;"
+            ),
+            column: "air_pressure",
+            db_url: db_url.to_string(),
+            unit_of_measurement: Some("hPa"),
+            device_class: Some(DeviceClass::AtmosphericPressure),
+            state_class: Some(StateClass::Measurement),
+            icon: "mdi:gauge",
         }
     }
 

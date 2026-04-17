@@ -1,6 +1,6 @@
 use crate::hass::Entity;
 use log::{debug, info, warn};
-use sqlx::{query_file, PgConnection};
+use sqlx::{PgConnection, query_file};
 use std::io::Write;
 
 #[allow(clippy::future_not_send)]
@@ -26,6 +26,7 @@ pub async fn run(
 
         entities.push(Entity::new_temperature(node_id, db_url));
         entities.push(Entity::new_humidity(node_id, db_url));
+        entities.push(Entity::new_air_pressure(node_id, db_url));
 
         if stats {
             debug!("Processing stats for node");
